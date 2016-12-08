@@ -246,7 +246,7 @@
     },
     {
       "name": "Name",
-      "pattern": "([a-z_\\\\])[\\w\\d\\._]*",
+      "pattern": "[a-z_\\\\][\\w\\d\\._]*",
       "activated": true
     }
   ],

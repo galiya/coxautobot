@@ -26,8 +26,10 @@ namespace ExcelBot
         [HttpGet, Route("api/{channelid}/{userid}/login")]
         public RedirectResult Login(string channelid, string userid)
         {
-            return Redirect(String.Format("https://login.windows.net/common/oauth2/authorize?response_type=code&client_id={0}&redirect_uri={1}&resource={2}", 
-                Constants.ADClientId, Constants.apiBasePath + channelid + "/" + userid + "/authorize", "https://graph.microsoft.com/"));
+            var redirectUrl = String.Format("https://login.windows.net/common/oauth2/authorize?response_type=code&client_id={0}&redirect_uri={1}&resource={2}",
+                Constants.ADClientId, Constants.apiBasePath + channelid + "/" + userid + "/authorize", "https://graph.microsoft.com/");
+
+            return Redirect(redirectUrl);
         }
 
         [HttpGet, Route("api/{channelid}/{userid}/authorize")]

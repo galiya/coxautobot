@@ -18,7 +18,7 @@ using ExcelBot.Helpers;
 
 namespace ExcelBot.Dialogs
 {
-    [LuisModel("LUIS MODEL ID", "LUIS SUBSCRIPTION KEY")]
+    [LuisModel("d5a2e3fb-9ddd-4bb1-b166-02a2b34ed08c", "4558f71cfac848d281c2987d702ff980")]
     [Serializable]
     public partial class ExcelBotDialog : LuisDialog<object>
     {
@@ -46,26 +46,28 @@ namespace ExcelBot.Dialogs
         {
             try
             {
-                // Telemetry
-                TelemetryHelper.TrackDialog(context, result, "Bot", "SayHello");
+                //// Telemetry
+                //TelemetryHelper.TrackDialog(context, result, "Bot", "SayHello");
 
-                // Did the bot already greet the user?
-                bool saidHello = false;
-                context.PrivateConversationData.TryGetValue<bool>("SaidHello", out saidHello);
+                //// Did the bot already greet the user?
+                //bool saidHello = false;
+                //context.PrivateConversationData.TryGetValue<bool>("SaidHello", out saidHello);
 
-                // Get the user data
-                var user = await ServicesHelper.UserService.GetUserAsync();
-                await ServicesHelper.LogUserServiceResponse(context);
+                //// Get the user data
+                //var user = await ServicesHelper.UserService.GetUserAsync();
+                //await ServicesHelper.LogUserServiceResponse(context);
 
-                // Respond
-                if (saidHello)
-                {
-                    await context.PostAsync($"Hi again, {user.GivenName}!");
-                }
-                else
-                {
-                    await context.PostAsync($"Hi, {user.GivenName}!");
-                }
+                //// Respond
+                //if (saidHello)
+                //{
+                //    await context.PostAsync($"Hi again, {user.GivenName}!");
+                //}
+                //else
+                //{
+                //    await context.PostAsync($"Hi, {user.GivenName}!");
+                //}
+
+                await context.PostAsync($"Hi!");
 
                 // Record that the bot said hello
                 context.PrivateConversationData.SetValue<bool>("SaidHello", true);

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="coxautobot" Class="CoxAutoBotDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=coxautobot.database.windows.net;Initial Catalog=coxautobot;Persist Security Info=True;User ID=galiya" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="coxautobotConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.GetTotalNumberCarsSold" Method="GetTotalNumberCarsSold">
+    <Parameter Name="TotalSold" Parameter="totalSold" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTopSellingModel" Method="GetTopSellingModel">
+    <Parameter Name="TopSellingModel" Parameter="topSellingModel" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTopDealerCarsSold" Method="GetTopDealerCarsSold">
+    <Parameter Name="TopDealerCarsSold" Parameter="topDealerCarsSold" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTopDealerSpecificModelSold" Method="GetTopDealerSpecificModelSold">
+    <Parameter Name="CarModel" Parameter="carModel" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="TopDealerCarsSold" Parameter="topDealerCarsSold" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTopModelForMakeSold" Method="GetTopModelForMakeSold">
+    <Parameter Name="CarMake" Parameter="carMake" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="TopModelSold" Parameter="topModelSold" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
