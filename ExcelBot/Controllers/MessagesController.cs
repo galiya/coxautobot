@@ -16,6 +16,7 @@ using Microsoft.Bot.Connector;
 using ExcelBot.Dialogs;
 using ExcelBot.Helpers;
 using System.Web;
+using System.Configuration;
 
 namespace ExcelBot
 {
@@ -36,18 +37,19 @@ namespace ExcelBot
             // Save the request url
             RequestHelper.RequestUri = Request.RequestUri;
 
-            // Check authentication
-            try
-            {
-                ServicesHelper.AccessToken = await AuthHelper.GetAccessToken(activity);
-            }
-            catch (Exception)
-            {
-                Activity reply = activity.CreateReply($"You must sign in to use the bot: {Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/api/{activity.ChannelId}/{HttpUtility.UrlEncode(activity.From.Id)}/login");
-                await connector.Conversations.ReplyToActivityAsync(reply);
+            //// Check authentication
+            //try
+            //{
+            //    ServicesHelper.AccessToken = await AuthHelper.GetAccessToken(activity);
+            //}
+            //catch (Exception)
+            //{
+            //    Activity reply = activity.CreateReply($"You must sign in to use the bot: {Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/api/{activity.ChannelId}/{HttpUtility.UrlEncode(activity.From.Id)}/login");
 
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
+            //    await connector.Conversations.ReplyToActivityAsync(reply);
+
+            //    return Request.CreateResponse(HttpStatusCode.OK);
+            //}
 
             // Process the message
             if ((activity.Type == ActivityTypes.Message) && (activity.Text.StartsWith("!")))
