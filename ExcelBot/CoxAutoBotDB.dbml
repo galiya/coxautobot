@@ -22,4 +22,22 @@
     <Parameter Name="TopModelSold" Parameter="topModelSold" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetLeastSellingModel" Method="GetLeastSellingModel">
+    <Parameter Name="LeastSellingModel" Parameter="leastSellingModel" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetRegionSpecificModelSold" Method="GetRegionSpecificModelSold">
+    <Parameter Name="CarModel" Parameter="carModel" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetRegionTotalCarsSold" Method="GetRegionTotalCarsSold">
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetSoldCarsStockData" Method="GetSoldCarsStockData">
+    <Parameter Name="StockPeriod" Parameter="stockPeriod" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CarsSold" Parameter="carsSold" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

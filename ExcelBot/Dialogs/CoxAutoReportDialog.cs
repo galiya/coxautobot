@@ -34,20 +34,6 @@ namespace ExcelBot.Dialogs
 
             await CoxAutoReportWorker.GetTotalNumberCarsSold(context); 
             context.Wait(MessageReceived);
-
-            //string workbookId = String.Empty;
-            //context.UserData.TryGetValue<string>("WorkbookId", out workbookId);
-
-            //if (!(String.IsNullOrEmpty(workbookId)))
-            //{
-            //    await CoxAutoReportWorker.GetTotalNumberCarsSold(context); //CellWorker.DoGetCellValue(context);
-            //    context.Wait(MessageReceived);
-            //}
-            //else
-            //{
-            //    //context.Call<bool>(new ConfirmOpenWorkbookDialog(), AfterConfirm_GetCellValue);
-            //}
-
         }
         #endregion
 
@@ -60,20 +46,6 @@ namespace ExcelBot.Dialogs
 
             await CoxAutoReportWorker.GetTopSellingModel(context); 
             context.Wait(MessageReceived);
-
-            //string workbookId = String.Empty;
-            //context.UserData.TryGetValue<string>("WorkbookId", out workbookId);
-
-            //if (!(String.IsNullOrEmpty(workbookId)))
-            //{
-            //    await CoxAutoReportWorker.GetTopSellingModel(context); //CellWorker.DoGetCellValue(context);
-            //    context.Wait(MessageReceived);
-            //}
-            //else
-            //{
-            //    //context.Call<bool>(new ConfirmOpenWorkbookDialog(), AfterConfirm_GetCellValue);
-            //}
-
         }
         #endregion
 
@@ -86,24 +58,51 @@ namespace ExcelBot.Dialogs
 
             await CoxAutoReportWorker.GetTopDealerCarsSold(context); 
             context.Wait(MessageReceived);
-
-            //string workbookId = String.Empty;
-            //context.UserData.TryGetValue<string>("WorkbookId", out workbookId);
-
-            //if (!(String.IsNullOrEmpty(workbookId)))
-            //{
-            //    await CoxAutoReportWorker.GetTopDealerCarsSold(context); //CellWorker.DoGetCellValue(context);
-            //    context.Wait(MessageReceived);
-            //}
-            //else
-            //{
-            //    //context.Call<bool>(new ConfirmOpenWorkbookDialog(), AfterConfirm_GetCellValue);
-            //}
-
         }
         #endregion
 
-        #region 
+        #region - Top Selling region
+
+        [LuisIntent("RegionTotalCarsSold")]
+        public async Task RegionTotalCarsSold(IDialogContext context, LuisResult result)
+        {
+            // Telemetry
+            TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "RegionTotalCarsSold");
+
+            await CoxAutoReportWorker.GetRegionTotalCarsSold(context); 
+            context.Wait(MessageReceived);
+        }
+        #endregion
+
+        #region - Top Selling region for a specific model
+        [LuisIntent("RegionSpecificModelSold")]
+        public async Task RegionSpecificModelSold(IDialogContext context, LuisResult result)
+        {
+            // Telemetry
+            TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "RegionSpecificModelSold");
+
+            var carMake = result.Entities[0].Entity.ToLower();
+            context.UserData.SetValue<string>("CarMake", carMake);
+
+            await CoxAutoReportWorker.GetRegionSpecificModelSold(context);
+            context.Wait(MessageReceived);
+        }
+        #endregion
+
+        #region - Least Selling Model
+        [LuisIntent("LeastSellingModel")]
+        public async Task LeastSellingModel(IDialogContext context, LuisResult result)
+        {
+            // Telemetry
+            TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "LeastSellingModel");
+
+            await CoxAutoReportWorker.GetLeastSellingModel(context);
+            context.Wait(MessageReceived);
+        }
+
+        #endregion
+
+        #region - TopDealerSpecificModelSold
         [LuisIntent("TopDealerSpecificModelSold")]
         public async Task TopDealerSpecificModelSold(IDialogContext context, LuisResult result)
         {
@@ -111,26 +110,64 @@ namespace ExcelBot.Dialogs
             //// Telemetry
             TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "TopDealerSpecificModelSold");
 
-            var carModel = result.Entities[0].Entity.ToLower();
-            context.UserData.SetValue<string>("CarModel", carModel);
+            try
+            {
+                var carModel = result.Entities[0].Entity.ToLower();
+                context.UserData.SetValue<string>("CarModel", carModel);
 
-            await CoxAutoReportWorker.GetTopDealerSpecificModelSold(context); 
-            context.Wait(MessageReceived);
+                await CoxAutoReportWorker.GetTopDealerSpecificModelSold(context);
+                context.Wait(MessageReceived);
+            }
+            catch (Exception ex)
+            {
+                await context.PostAsync($"Sorry, something went wrong when I tried to process your message ({ex.Message})");
+            }
+        }
+        #endregion
 
-            //string workbookId = String.Empty;
-            //context.UserData.TryGetValue<string>("WorkbookId", out workbookId);
 
-            //if (!(String.IsNullOrEmpty(workbookId)))
-            //{
-            //    await CoxAutoReportWorker.GetTopDealerSpecificModelSold(context); 
-            //    context.Wait(MessageReceived);
-            //}
-            //else
-            //{
-            //    //context.Call<bool>(new ConfirmOpenWorkbookDialog(), AfterConfirm_GetCellValue);
-            //}
+
+        #region - How Many Vehicles were sold
+
+        private const string stockOptionLess30days = "less than 30 days";
+        private const string stockOption3145days = "31-45 days";
+        private const string stockOption4660days = "46-60 days";
+        private const string stockOption6190days = "61-90 days";
+        private const string stockOptionOver90days = "over 90 days";
+
+        [LuisIntent("SoldCarsStockData")]
+        public async Task SoldCarsStockData(IDialogContext context, LuisResult result)
+        {
+            // Telemetry
+            TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "SoldCarsStockData");
+
+            PromptDialog.Choice(context, this.OnOptionSelected, new List<string>()
+                { stockOptionLess30days, stockOption3145days, stockOption4660days, stockOption6190days, stockOptionOver90days },
+                "Which stock age are interested in?", "Not a valid option", 3);
 
         }
+       
+        private async Task OnOptionSelected(IDialogContext context, IAwaitable<string> result)
+        {
+            try
+            {
+                string optionSelected = await result;
+                context.UserData.SetValue("StockPeriod", optionSelected);
+                
+                await CoxAutoReportWorker.GetSoldCarsStockData(context);
+
+            }
+            catch (Exception ex)
+            {
+                await context.PostAsync($"Sorry, something went wrong when I tried to process your message ({ex.Message})");
+            }
+            finally
+            {
+                context.Wait(MessageReceived); 
+            }
+        }
+        
+
         #endregion
 
         #region 
@@ -141,24 +178,28 @@ namespace ExcelBot.Dialogs
             //// Telemetry
             TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "TopDealerSpecificModelSold");
 
-            var carMake = result.Entities[0].Entity.ToLower();
-            context.UserData.SetValue<string>("CarMake", carMake);
+            try
+            {
+                if (result.Entities.Count > 0)
+                {
+                    var carMake = result.Entities[0].Entity.ToLower();
+                    context.UserData.SetValue<string>("CarMake", carMake);
 
-            await CoxAutoReportWorker.GetTopModelForMakeSold(context); 
-            context.Wait(MessageReceived);
-
-            //string workbookId = String.Empty;
-            //context.UserData.TryGetValue<string>("WorkbookId", out workbookId);
-
-            //if (!(String.IsNullOrEmpty(workbookId)))
-            //{
-            //    await CoxAutoReportWorker.GetTopModelForMakeSold(context); //CellWorker.DoGetCellValue(context);
-            //    context.Wait(MessageReceived);
-            //}
-            //else
-            //{
-            //    //context.Call<bool>(new ConfirmOpenWorkbookDialog(), AfterConfirm_GetCellValue);
-            //}
+                    await CoxAutoReportWorker.GetTopModelForMakeSold(context);
+                }
+                else
+                {
+                    await context.PostAsync($"Sorry, I could not understand your message.");
+                }
+            }
+            catch (Exception ex)
+            {
+                await context.PostAsync($"Sorry, something went wrong when I tried to process your message ({ex.Message})");
+            }
+            finally
+            {
+                context.Wait(MessageReceived);
+            }
 
         }
         #endregion

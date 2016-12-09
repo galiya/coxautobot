@@ -12,6 +12,7 @@ using System.Web;
 using Microsoft.Bot.Builder.Dialogs;
 
 using ExcelBot.Helpers;
+using Microsoft.Bot.Connector;
 
 namespace ExcelBot.Workers
 {
@@ -35,9 +36,7 @@ namespace ExcelBot.Workers
             CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
 
             string model = null;
-            //int? sold;
-
-            var topSellingModel = reportData.GetTopSellingModel(ref model);
+            reportData.GetTopSellingModel(ref model);
             
             var response = $"The top selling model is {model}";
 
@@ -50,8 +49,7 @@ namespace ExcelBot.Workers
 
             string dealer = null;
 
-            var topDealerCarsSold = reportData.GetTopDealerCarsSold(ref dealer);
-
+            reportData.GetTopDealerCarsSold(ref dealer);
             var response = $"The dealer with the most sold units is {dealer}";
 
             await ReplyWithValue(context, response);
@@ -64,7 +62,7 @@ namespace ExcelBot.Workers
             string dealer = null;
 
             var carModel = context.UserData.Get<string>("CarModel");
-            var topDealerCarsSold = reportData.GetTopDealerSpecificModelSold(carModel, ref dealer);
+            reportData.GetTopDealerSpecificModelSold(carModel, ref dealer);
             
             var response = $"The dealer sold the most {carModel} is {dealer}";
 
@@ -72,18 +70,72 @@ namespace ExcelBot.Workers
         }
         
         public static async Task GetTopModelForMakeSold(IDialogContext context)
-            {
-                CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
+        {
+            CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
 
-                string model = null;
+            string model = null;
 
-                var carMake = context.UserData.Get<string>("CarMake");
-                var topDealerCarsSold = reportData.GetTopModelForMakeSold(carMake, ref model);
+            var carMake = context.UserData.Get<string>("CarMake");
+            reportData.GetTopModelForMakeSold(carMake, ref model);
             
-                var response = $"The most popular model for {carMake} variant is {model}";
+            var response = $"The most popular model for {carMake} variant is {model}";
 
-                await ReplyWithValue(context, response);
-            }
+            await ReplyWithValue(context, response);
+        }
+
+        public static async Task GetRegionTotalCarsSold(IDialogContext context)
+        {
+            CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
+
+            string region = null;
+            
+            reportData.GetRegionTotalCarsSold(ref region);
+
+            var response = $"The region that sold most cars is {region}";
+
+            await ReplyWithValue(context, response);
+        }
+
+        public static async Task GetRegionSpecificModelSold(IDialogContext context)
+        {
+            CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
+
+            string region = null;
+
+            var carMake = context.UserData.Get<string>("CarMake");
+            reportData.GetRegionSpecificModelSold(carMake, ref region);
+
+            var response = $"The region that sold the most {carMake} is {region}";
+
+            await ReplyWithValue(context, response);
+        }
+
+        public static async Task GetLeastSellingModel(IDialogContext context)
+        {
+            CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
+
+            string model = null;
+
+            reportData.GetLeastSellingModel(ref model);
+
+            var response = $"The least selling model is {model}";
+
+            await ReplyWithValue(context, response);
+        }
+        
+        public static async Task GetSoldCarsStockData(IDialogContext context)
+        {
+            CoxAutoBotDBDataContext reportData = new CoxAutoBotDBDataContext();
+
+            string stockPeriod = context.UserData.Get<string>("StockPeriod"); 
+            int? sold = null;
+            reportData.GetSoldCarsStockData(stockPeriod, ref sold);
+
+            var response = $"The number of sold vehicles is {sold}";
+
+            await ReplyWithValue(context, response);
+        }
+
         #region Helpers
 
         public static async Task ReplyWithValue(IDialogContext context, string response)

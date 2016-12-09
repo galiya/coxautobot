@@ -101,6 +101,38 @@ namespace ExcelBot
 			topModelSold = ((string)(result.GetParameterValue(1)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetLeastSellingModel")]
+		public int GetLeastSellingModel([global::System.Data.Linq.Mapping.ParameterAttribute(Name="LeastSellingModel", DbType="VarChar(50)")] ref string leastSellingModel)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), leastSellingModel);
+			leastSellingModel = ((string)(result.GetParameterValue(0)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRegionSpecificModelSold")]
+		public int GetRegionSpecificModelSold([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CarModel", DbType="VarChar(50)")] string carModel, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="VarChar(50)")] ref string region)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), carModel, region);
+			region = ((string)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRegionTotalCarsSold")]
+		public int GetRegionTotalCarsSold([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="VarChar(50)")] ref string region)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), region);
+			region = ((string)(result.GetParameterValue(0)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSoldCarsStockData")]
+		public int GetSoldCarsStockData([global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockPeriod", DbType="VarChar(50)")] string stockPeriod, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CarsSold", DbType="Int")] ref System.Nullable<int> carsSold)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), stockPeriod, carsSold);
+			carsSold = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 }
 #pragma warning restore 1591
