@@ -9,7 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 
-namespace ExcelBot
+namespace CoxAutoBot
 {
     public static class Constants
     {

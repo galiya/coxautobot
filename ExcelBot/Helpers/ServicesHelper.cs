@@ -13,11 +13,12 @@ using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 
-using Office365Service;
-using Office365Service.ViewModel;
+//using Office365Service;
+//using Office365Service.ViewModel;
 
-namespace ExcelBot.Helpers
+namespace CoxAutoBot.Helpers
 {
+    /*
     public static class ServicesHelper
     {
         // Excel Service Settings
@@ -109,7 +110,7 @@ namespace ExcelBot.Helpers
             }
         }
         #endregion
-
+        
         #region Methods
         public static void StartLogging(Activity activity)
         {
@@ -171,4 +172,5 @@ namespace ExcelBot.Helpers
         }
         #endregion
     }
+    */
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ExcelBot.Model
+namespace CoxAutoBot.Model
 {
     public class UserData
     {

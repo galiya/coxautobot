@@ -14,16 +14,16 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Luis.Models;
 
-using ExcelBot.Helpers;
+using CoxAutoBot.Helpers;
 
-namespace ExcelBot.Dialogs
+namespace CoxAutoBot.Dialogs
 {
     [LuisModel("d5a2e3fb-9ddd-4bb1-b166-02a2b34ed08c", "4558f71cfac848d281c2987d702ff980")]
     [Serializable]
-    public partial class ExcelBotDialog : LuisDialog<object>
+    public partial class CoxAutoBotDialog : LuisDialog<object>
     {
         #region Constructor
-        public ExcelBotDialog()
+        public CoxAutoBotDialog()
         {
         }
         #endregion
@@ -87,17 +87,13 @@ namespace ExcelBot.Dialogs
 
             // Respond
             await context.PostAsync($@"Here is a list of things I can do for you:
-* Open a workbook on your OneDrive for Business. For example, type ""look at sales 2016"" if you want to work with ""Sales 2016.xlsx"" in the root folder of your OneDrive for Business
-* List worksheets in the workbook and select a worksheet. For example, ""which worksheets are in the workbook?"", ""select worksheet"" or ""select Sheet3"" 
-* Get and set the value of a cell. For example, type ""what is the value of A1?"" or ""change B57 to 5""
-* List names defined in the workbook. For example, type ""Which names are in the workbook?""
-* Get and set the value of a named item, for example, type ""show me TotalSales"" or ""set cost to 100""
-* List the tables in the workbook. For example, type ""Show me the tables""
-* Show the rows in a table. For example, type ""Show customers""
-* Look up a row in a table. For example, type ""Lookup Contoso in customers"" or ""lookup Contoso"" 
-* Change the value of a cell in a table row. For example, first type ""lookup contoso in customers"", then type ""change segment to enterprise""
-* List the charts in the workbook. For example, type ""Which charts are in the workbook?""
-* Get the image of a chart. For example, type ""Show me Chart 1""");
+                * You can ask me about toral car sales. For example type ""How many cars were sold in total?""
+                * If you are interested in top selling model type ""What was the top selling model?""
+                * Or to find out about least selling model type ""Which vehicles sold the least amount?""
+                * Also, I can tell you about the dealer who sold the most units and the region where most vehicles where sold, type ""Which dealer sold the most units?"", or ""Which Region sold the most vehicles?""
+                * Enquire about sales of particular makes by typing ""Which region sold the most Photons"", or ""Which dealer sold the most Basalt Sport?""
+                * Get more information about sales depending on the stock age, for instance type ""How many vehicles were sold?"" and then select one of the options
+                * Understand sales of a particular model. For example, type ""Which Pluton variant was the most popular""");
 
             await context.PostAsync($@"Remember I'm just a bot. There are many things I still need to learn, so please tell me what you want me to get better at.");
 

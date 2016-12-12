@@ -13,12 +13,12 @@ using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 
-using ExcelBot.Dialogs;
-using ExcelBot.Helpers;
+using CoxAutoBot.Dialogs;
+using CoxAutoBot.Helpers;
 using System.Web;
 using System.Configuration;
 
-namespace ExcelBot
+namespace CoxAutoBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
@@ -59,8 +59,8 @@ namespace ExcelBot
             }
             else if (activity.Type == ActivityTypes.Message)
             {
-                ServicesHelper.StartLogging(activity);
-                await Conversation.SendAsync(activity, () => new ExcelBotDialog());
+                //ServicesHelper.StartLogging(activity);
+                await Conversation.SendAsync(activity, () => new CoxAutoBotDialog());
             }
             else
             {
