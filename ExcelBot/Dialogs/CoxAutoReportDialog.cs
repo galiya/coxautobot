@@ -142,7 +142,7 @@ namespace CoxAutoBot.Dialogs
 
             PromptDialog.Choice(context, this.OnOptionSelected, new List<string>()
                 { stockOptionLess30days, stockOption3145days, stockOption4660days, stockOption6190days, stockOptionOver90days },
-                "Which stock age are interested in?", "Not a valid option", 3);
+                "Which stock age are you interested in?", "Not a valid option", 3);
 
         }
        
