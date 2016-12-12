@@ -12,13 +12,12 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis.Models;
 
-using ExcelBot.Helpers;
-using ExcelBot.Workers;
-using ExcelBot.Model;
+using CoxAutoBot.Helpers;
+using CoxAutoBot.Workers;
 
-namespace ExcelBot.Dialogs
+namespace CoxAutoBot.Dialogs
 {
-    public partial class ExcelBotDialog : LuisDialog<object>
+    public partial class CoxAutoBotDialog : LuisDialog<object>
     {
         #region Properties
         //internal object Value { get; set; }

@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 using Newtonsoft.Json.Linq;
 
-namespace ExcelBot.Helpers
+namespace CoxAutoBot.Helpers
 {
     public static class AuthHelper
     {

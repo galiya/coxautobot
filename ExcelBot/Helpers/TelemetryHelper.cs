@@ -16,7 +16,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis.Models;
 using Microsoft.Bot.Connector;
 
-namespace ExcelBot.Helpers
+namespace CoxAutoBot.Helpers
 {
     public static class TelemetryHelper
     {

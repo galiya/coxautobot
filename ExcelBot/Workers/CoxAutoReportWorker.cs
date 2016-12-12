@@ -11,10 +11,10 @@ using System.Web;
 
 using Microsoft.Bot.Builder.Dialogs;
 
-using ExcelBot.Helpers;
+using CoxAutoBot.Helpers;
 using Microsoft.Bot.Connector;
 
-namespace ExcelBot.Workers
+namespace CoxAutoBot.Workers
 {
     public static class CoxAutoReportWorker
     {

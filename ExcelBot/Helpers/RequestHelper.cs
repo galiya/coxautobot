@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 using Microsoft.ApplicationInsights;
 
-using ExcelBot.Dialogs;
-using ExcelBot.Model;
+using CoxAutoBot.Dialogs;
+using CoxAutoBot.Model;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
@@ -16,7 +16,7 @@ using Newtonsoft.Json.Linq;
  * See LICENSE in the project root for license information.
  */
 
-namespace ExcelBot.Helpers
+namespace CoxAutoBot.Helpers
 {
     public static class RequestHelper
     {

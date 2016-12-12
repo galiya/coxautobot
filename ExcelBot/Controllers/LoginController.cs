@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-using ExcelBot.Helpers;
+using CoxAutoBot.Helpers;
 using Microsoft.Bot.Connector;
 
-namespace ExcelBot
+namespace CoxAutoBot
 {
     public class LoginController : ApiController
     {

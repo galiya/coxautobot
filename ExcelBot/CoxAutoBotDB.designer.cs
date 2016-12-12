@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExcelBot
+namespace CoxAutoBot
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
