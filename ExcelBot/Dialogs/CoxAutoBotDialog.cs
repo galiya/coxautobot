@@ -87,7 +87,7 @@ namespace CoxAutoBot.Dialogs
 
             // Respond
             await context.PostAsync($@"Here is a list of things I can do for you:
-                * You can ask me about toral car sales. For example type ""How many cars were sold in total?""
+                * You can ask me about total car sales. For example type ""How many cars were sold in total?""
                 * If you are interested in top selling model type ""What was the top selling model?""
                 * Or to find out about least selling model type ""Which vehicles sold the least amount?""
                 * Also, I can tell you about the dealer who sold the most units and the region where most vehicles where sold, type ""Which dealer sold the most units?"", or ""Which Region sold the most vehicles?""
