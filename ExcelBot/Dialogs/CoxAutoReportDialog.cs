@@ -128,6 +128,7 @@ namespace CoxAutoBot.Dialogs
 
         #region - How Many Vehicles were sold
 
+        private const string stockOptionTotalSales = "total";
         private const string stockOptionLess30days = "less than 30 days";
         private const string stockOption3145days = "31-45 days";
         private const string stockOption4660days = "46-60 days";
@@ -141,7 +142,7 @@ namespace CoxAutoBot.Dialogs
             TelemetryHelper.TrackDialog(context, result, "CoxAutoReport", "SoldCarsStockData");
 
             PromptDialog.Choice(context, this.OnOptionSelected, new List<string>()
-                { stockOptionLess30days, stockOption3145days, stockOption4660days, stockOption6190days, stockOptionOver90days },
+                { stockOptionLess30days, stockOption3145days, stockOption4660days, stockOption6190days, stockOptionOver90days, stockOptionTotalSales },
                 "Which stock age are you interested in?", "Not a valid option", 3);
 
         }
